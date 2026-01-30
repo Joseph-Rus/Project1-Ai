@@ -1,0 +1,149 @@
+===============================================================================
+PYTHON 3 SETUP INSTRUCTIONS FOR PACMAN PROJECT
+===============================================================================
+
+GOOD NEWS: This project has been fully converted to Python 3!
+You can now run it with Python 3 on any modern system, including macOS 15+.
+
+===============================================================================
+QUICK START
+===============================================================================
+
+1. Check if Python 3 is installed (it usually is):
+   python3 --version
+
+2. Run the game directly:
+   python3 pacman.py
+
+That's it! No complex setup required.
+
+===============================================================================
+OPTIONAL: VIRTUAL ENVIRONMENT SETUP (RECOMMENDED FOR ISOLATION)
+===============================================================================
+
+If you want to keep your project isolated, you can use a virtual environment:
+
+MAC/LINUX:
+----------
+1. Create virtual environment:
+   python3 -m venv venv
+
+2. Activate it:
+   source venv/bin/activate
+
+3. Run the project:
+   python pacman.py  # Note: when venv is active, 'python' refers to python3
+
+4. Deactivate when done:
+   deactivate
+
+WINDOWS:
+--------
+1. Create virtual environment:
+   python -m venv venv
+
+2. Activate it:
+   venv\Scripts\activate
+
+3. Run the project:
+   python pacman.py
+
+4. Deactivate when done:
+   deactivate
+
+===============================================================================
+SYSTEM REQUIREMENTS
+===============================================================================
+
+- Python 3.6 or higher
+- No additional packages required!
+- Works on macOS (including M1/M2/M3), Windows, and Linux
+- Full graphics support via built-in tkinter
+
+===============================================================================
+TESTING YOUR SETUP
+===============================================================================
+
+1. Test basic functionality:
+   python3 pacman.py
+   # Should open a Pacman game window
+
+2. Test with different maze:
+   python3 pacman.py -l tinyMaze
+   # Should show a smaller maze
+
+3. Test autograder:
+   python3 autograder.py
+   # Will show which search algorithms need implementation
+
+===============================================================================
+TROUBLESHOOTING
+===============================================================================
+
+1. "python3: command not found"
+   - Install Python 3 from https://www.python.org/downloads/
+   - Mac: Can also use: brew install python3
+   - Linux: sudo apt-get install python3 (Ubuntu/Debian)
+
+2. "No module named tkinter" (rare)
+   - Mac: tkinter should be included with Python 3
+   - Linux: sudo apt-get install python3-tk
+   - Windows: tkinter is included with Python 3
+
+3. Graphics issues on WSL:
+   - Install X server (VcXsrv or Xming for Windows)
+   - Set display: export DISPLAY=:0
+   - Or run text mode: python3 pacman.py --textGraphics
+
+4. macOS 15+ compatibility:
+   ✅ FIXED! This project now works perfectly with Python 3 on macOS 15+
+
+===============================================================================
+PROJECT STATUS
+===============================================================================
+
+✅ Fully converted to Python 3
+✅ All syntax updated for Python 3 compatibility
+✅ Graphics work on all platforms including macOS 15+
+✅ No external dependencies required
+
+⚠️  Search algorithms in search.py need to be implemented:
+   - depthFirstSearch (q1)
+   - breadthFirstSearch (q2) 
+   - uniformCostSearch (q3)
+   - aStarSearch (q4)
+
+===============================================================================
+QUICK COMMAND REFERENCE
+===============================================================================
+
+# Play manually
+python3 pacman.py
+
+# Small maze
+python3 pacman.py -l tinyMaze
+
+# Run autograder
+python3 autograder.py
+
+# Test specific question
+python3 autograder.py -q q1
+
+# Text-only mode (no graphics)
+python3 pacman.py --textGraphics
+
+# Get help
+python3 pacman.py -h
+
+===============================================================================
+FOR INSTRUCTORS/TAs
+===============================================================================
+
+This codebase has been modernized for Python 3 compatibility while maintaining
+the original UC Berkeley CS188 structure. Students can now use modern Python
+development tools and don't need to install outdated Python 2.
+
+All original functionality is preserved - only the Python 2-specific syntax
+has been updated.
+
+===============================================================================
