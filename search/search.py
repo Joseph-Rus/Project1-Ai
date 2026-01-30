@@ -73,7 +73,46 @@ def tinyMazeSearch(problem):
     return  [s, s, w, s, w, w, s, w]
 
 def depthFirstSearch(problem):
-    # while True:
+    from util import Stack  # Use the provided Stack
+    
+    # Initialize
+    explored = []  # or set()
+    unexplored = Stack()
+    
+    startState = problem.getStartState()
+    unexplored.push((startState, []))  # (state, path) - path starts empty
+    
+    while not unexplored.isEmpty():
+        # Pop current node
+        currentState, currentPath = unexplored.pop()
+        
+        # Check if goal
+        if problem.isGoalState(currentState):
+            return currentPath  # Return the path of actions!
+        
+        # Skip if already explored
+        if currentState in explored:
+            continue
+            
+        # Mark as explored
+        explored.append(currentState)
+        
+        # Get successors
+        successors = problem.getSuccessors(currentState)
+        
+        # THIS IS WHERE YOUR CODE GOES:
+        for successor in successors:
+            nextState = successor[0]
+            action = successor[1]
+            # cost = successor[2]  # Don't need for DFS
+            
+            if nextState not in explored:
+                newPath = currentPath + [action]  # Build the path
+                unexplored.push((nextState, newPath))  # Add to stack
+    
+    return []  # No solution found
+            
+            
         
     
     print("Start State: " + str(problem.getStartState()))
