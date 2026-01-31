@@ -18,6 +18,8 @@ Pacman agents (in searchAgents.py).
 """
 
 import util
+from util import Stack  # Use the provided Stack
+
 
 class SearchProblem:
     """
@@ -74,54 +76,45 @@ def tinyMazeSearch(problem):
 
 def depthFirstSearch(problem):
     from util import Stack  # Use the provided Stack
+
+    explored = []
+    unexpanded = Stack()
+    Start = problem.getStartState()
+
+    # this will get the start sate like (5,4) and then it will get the action like north or south
+    unexpanded.push((Start,[]))
     
-    # Initialize
-    explored = []  # or set()
-    unexplored = Stack()
     
-    startState = problem.getStartState()
-    unexplored.push((startState, []))  # (state, path) - path starts empty
-    
-    while not unexplored.isEmpty():
-        # Pop current node
-        currentState, currentPath = unexplored.pop()
+    while not unexpanded.isEmpty():
+        # this will pop the last element in the stack and remove the state and the action from it
+        state, actions = unexpanded.pop()
         
-        # Check if goal
-        if problem.isGoalState(currentState):
-            return currentPath  # Return the path of actions!
-        
-        # Skip if already explored
-        if currentState in explored:
+        if problem.isGoalState(state):
+            # we will return the path that we took like the in the [] actions so we are storing the actions in a list
+            return actions
+        if state in explored: # if we have already been to this state, skip it
             continue
-            
-        # Mark as explored
-        explored.append(currentState)
+        explored.append(state)
         
-        # Get successors
-        successors = problem.getSuccessors(currentState)
-        
-        # THIS IS WHERE YOUR CODE GOES:
+        ## we need to store the successors of the current state so we will call the getSuccessors function on the problem
+        successors = problem.getSuccessors(state)
         for successor in successors:
             nextState = successor[0]
             action = successor[1]
-            # cost = successor[2]  # Don't need for DFS
+            #cost = successor[2]
             
             if nextState not in explored:
-                newPath = currentPath + [action]  # Build the path
-                unexplored.push((nextState, newPath))  # Add to stack
+                newActions = actions + [action]
+                unexpanded.push((nextState, newActions))
+    return []
     
-    return []  # No solution found
-            
-            
-        
+    # print("Start State: " + str(problem.getStartState()))
+    # print("Is the start state ( " + str(problem.getStartState()) + " ) a goal?: " + str(problem.isGoalState(problem.getStartState()))) 
     
-    print("Start State: " + str(problem.getStartState()))
-    print("Is the start state ( " + str(problem.getStartState()) + " ) a goal?: " + str(problem.isGoalState(problem.getStartState()))) 
-    
-    print("Successor function of initial start state ( " + str(problem.getStartState()) + " ) yields a tuple with 3 pieces:")
-    print("\t(nextState, actionFromCurrStateToNextState, costToGetFromCurrStateToNextState)")
-    for statePortion in problem.getSuccessors(problem.getStartState()):
-        print("\t" + str(statePortion))
+    # print("Successor function of initial start state ( " + str(problem.getStartState()) + " ) yields a tuple with 3 pieces:")
+    # print("\t(nextState, actionFromCurrStateToNextState, costToGetFromCurrStateToNextState)")
+    # for statePortion in problem.getSuccessors(problem.getStartState()):
+    #     print("\t" + str(statePortion))
     """
     Search the deepest nodes in the search tree first.
 
