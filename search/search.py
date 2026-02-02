@@ -151,6 +151,47 @@ def breadthFirstSearch(problem):
     util.raiseNotDefined()
 
 def uniformCostSearch(problem):
+    from util import PriorityQueue  # Use the provided Queue
+    
+    # Initialize
+    explored = []  # or set()
+    unexplored = PriorityQueue()
+    totalCost = 0
+    
+    startState = problem.getStartState()
+    unexplored.push((startState, [], 0), 0)  # (state, path, cost) - path starts empty
+    
+    while not unexplored.isEmpty():
+        # Pop current node
+        currentState, currentPath, currentCost = unexplored.pop()
+        
+        # Check if goal
+        if problem.isGoalState(currentState):
+            return currentPath  # Return the path of actions!
+        
+        # Skip if already explored
+        if currentState in explored:
+            continue
+            
+        # Mark as explored
+        explored.append(currentState)
+        
+        # Get successors
+        successors = problem.getSuccessors(currentState)
+        
+        # THIS IS WHERE YOUR CODE GOES:
+        for successor in successors:
+            nextState = successor[0]
+            action = successor[1]
+            cost = successor[2] # Added for UCS
+            
+            if nextState not in explored:
+                newPath = currentPath + [action] # Build the path
+                newCost = currentCost + cost  # Add to queue
+                unexplored.push((nextState, newPath, newCost), newCost)  # Add to priority queue with cost
+    
+    return []  # No solution found
+
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
     util.raiseNotDefined()
