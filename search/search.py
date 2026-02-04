@@ -226,6 +226,47 @@ def nullHeuristic(state, problem=None):
     return 0
 
 def aStarSearch(problem, heuristic=nullHeuristic):
+    from util import PriorityQueue  # Use the provided Queue
+    
+    # Initialize
+    explored = []  # or set()
+    unexplored = PriorityQueue()
+    
+    startState = problem.getStartState()
+    heuristicCost = heuristic(startState, problem)
+    unexplored.push((startState, [], 0), heuristicCost)  # (state, path, cost) - path starts empty
+    
+    while not unexplored.isEmpty():
+        # Pop current node
+        currentState, currentPath, currentCost = unexplored.pop()
+        
+        # Check if goal
+        if problem.isGoalState(currentState):
+            return currentPath  # Return the path of actions!
+        
+        # Skip if already explored
+        if currentState in explored:
+            continue
+            
+        # Mark as explored
+        explored.append(currentState)
+        
+        # Get successors
+        successors = problem.getSuccessors(currentState)
+        
+        # THIS IS WHERE YOUR CODE GOES:
+        for successor in successors:
+            nextState = successor[0]
+            action = successor[1]
+            cost = successor[2] # Added for UCS
+            
+            if nextState not in explored:
+                newPath = currentPath + [action] # Build the path
+                newCost = currentCost + cost  # Add to queue
+                heuristicCost = newCost + heuristic(nextState, problem)  # f(n) = g(n) + h(n)
+                unexplored.push((nextState, newPath, newCost), heuristicCost)  # Add to priority queue with f(n)
+    
+    return []  # No solution found
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
     util.raiseNotDefined()
